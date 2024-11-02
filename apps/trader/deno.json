@@ -1,0 +1,10 @@
+{
+    "name": "@trader-seal/trader",
+    "exports": "./main.ts",
+    "tasks": {
+        "dev": "deno run --inspect --check --allow-net=localhost,paper-api.alpaca.markets,data.alpaca.markets --allow-env --env-file main.ts"
+    },
+    "imports": {
+        "@std/assert": "jsr:@std/assert@1"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "workspace": [
+        "apps/trader",
+        "packages/alpaca-client"
+    ],
+    "lint": {
+    },
+    "fmt": {
+        "exclude": [".vscode"],
+        "useTabs": false,
+        "indentWidth": 4,
+        "singleQuote": true,
+        "semiColons": true,
+        "lineWidth": 110
+    }
+}
