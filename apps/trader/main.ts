@@ -13,6 +13,6 @@ if (import.meta.main) {
         mode: 'paper',
     });
 
-    const codes = await client.getExchangeCodes();
-    console.log(codes);
+    const assets = await client.getAssets();
+    console.log(assets);
 }
