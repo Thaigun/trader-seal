@@ -1,3 +1,5 @@
+import type { Asset, ExchangeCodes } from './tradingApiTypes.ts';
+
 interface AlpacaClientOptions {
     key: string;
     secret: string;
@@ -13,12 +15,12 @@ export class AlpacaClient {
         exchange?: 'AMEX' | 'ARCA' | 'BATS' | 'NYSE' | 'NASDAQ' | 'NYSEARCA' | 'OTC';
         attributes?:
             ('ptp_no_exception' | 'ptp_with_exception' | 'ipo' | 'has_options' | 'options_late_close')[];
-    }) {
+    }): Promise<Asset[]> {
         const params = opts && { ...opts, attributes: opts.attributes?.join(',') };
         return await this.tradingApiRequest('GET', 'v2/assets', params);
     }
 
-    async getExchangeCodes() {
+    async getExchangeCodes(): Promise<ExchangeCodes> {
         return await this.marketDataApiRequest('v2/stocks/meta/exchanges');
     }
 
