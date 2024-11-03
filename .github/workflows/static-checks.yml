@@ -20,6 +20,6 @@ jobs:
             - name: Run Deno format check
               run: deno fmt --check
             - name: Run Deno type check
-              run: deno check
+              run: deno check .
             - name: Run Deno lint check
               run: deno lint
