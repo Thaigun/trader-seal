@@ -1,8 +1,12 @@
 {
     "workspace": [
+        "apps/trade-list-gen",
         "apps/trader",
         "packages/alpaca-client"
     ],
+    "tasks": {
+        "static-checks": "deno lint && deno fmt --check && deno check ."
+    },
     "lint": {
     },
     "fmt": {
