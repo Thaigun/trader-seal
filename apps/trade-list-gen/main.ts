@@ -1,5 +1,5 @@
 import { AlpacaClient } from '@trader-seal/alpaca-client';
-import { ensureDir,  } from "jsr:@std/fs";
+import { ensureDir } from 'jsr:@std/fs';
 
 if (import.meta.main) {
     const keyId = Deno.env.get('APCA_KEY_ID');
@@ -13,6 +13,6 @@ if (import.meta.main) {
         mode: 'paper',
     });
     const assets = await client.getAssets();
-    await ensureDir("./output");
+    await ensureDir('./output');
     await Deno.writeTextFile('./output/assets.json', JSON.stringify(assets, null, 2));
 }
