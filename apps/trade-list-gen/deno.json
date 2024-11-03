@@ -1,0 +1,7 @@
+{
+    "name": "@trader-seal/trade-list-gen",
+    "exports": "./main.ts",
+    "tasks": {
+        "generate": "deno run --check --allow-read=output --allow-write=output --allow-net=paper-api.alpaca.markets,api.alpaca.markets --allow-env --env-file main.ts"
+    }
+}
