@@ -18,7 +18,30 @@ interface Asset {
     attributes: ('ptp_no_exception' | 'ptp_with_exception' | 'ipo' | 'has_options' | 'options_late_close')[];
 }
 
-const windowsInvalidFileNames = ['CON', 'PRN', 'AUX', 'NUL', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'];
+const windowsInvalidFileNames = [
+    'CON',
+    'PRN',
+    'AUX',
+    'NUL',
+    'COM1',
+    'COM2',
+    'COM3',
+    'COM4',
+    'COM5',
+    'COM6',
+    'COM7',
+    'COM8',
+    'COM9',
+    'LPT1',
+    'LPT2',
+    'LPT3',
+    'LPT4',
+    'LPT5',
+    'LPT6',
+    'LPT7',
+    'LPT8',
+    'LPT9',
+];
 
 if (import.meta.main) {
     await fetchData();
@@ -69,21 +92,24 @@ async function fetchData() {
                     console.warn('Rate limit exceeded');
                     await waitForSeconds(60 * 15);
                 } else if (error.cause === 404) {
-                    await Deno.writeTextFile(`./output/${fileName}.json`, JSON.stringify({ error: 'Not found' }));
+                    await Deno.writeTextFile(
+                        `./output/${fileName}.json`,
+                        JSON.stringify({ error: 'Not found' }),
+                    );
                 } else {
                     console.error(error);
                 }
             } else {
                 console.error(error);
             }
-        }        
+        }
     }
 }
 
 async function getHistoricalData(symbol: string, opts: {
     since: number;
     until: number;
-    interval: '1d',
+    interval: '1d';
     includePrePost: boolean;
 }) {
     const { since, until, interval, includePrePost } = opts;
