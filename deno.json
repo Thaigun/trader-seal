@@ -1,5 +1,6 @@
 {
     "workspace": [
+        "apps/yahoo-history-builder",
         "apps/trade-list-gen",
         "apps/trader",
         "packages/alpaca-client"
