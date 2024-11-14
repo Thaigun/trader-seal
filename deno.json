@@ -4,6 +4,7 @@
         "apps/trade-list-gen",
         "apps/trader",
         "packages/alpaca-client",
+        "packages/postgres-client",
         "packages/yahoo-client"
     ],
     "tasks": {

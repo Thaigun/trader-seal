@@ -1,6 +1,6 @@
+import { createConnection } from '@trader-seal/postgres-client';
 import * as path from 'jsr:@std/path';
 import { type Migration, type MigrationProvider, type MigrationResultSet, Migrator } from 'kysely';
-import { db } from './db.ts';
 
 interface FileMigrationProviderProps {
     migrationDir: string;
@@ -37,6 +37,20 @@ if (Deno.args.length !== 1 || !['latest', 'up', 'down'].includes(command)) {
     console.error('Usage: migrate.ts latest|up|down');
     Deno.exit(1);
 }
+
+const dbPassword = Deno.env.get('DB_PASSWORD');
+if (!dbPassword) {
+    throw new Error('DB_PASSWORD environment variable is not set');
+}
+
+const db = createConnection({
+    database: 'ohlcv',
+    username: 'postgres',
+    password: dbPassword,
+    host: '127.0.0.1',
+    port: 5432,
+    max: 10,
+});
 
 const migrator = new Migrator({
     db,

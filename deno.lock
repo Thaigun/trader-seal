@@ -537,6 +537,13 @@
           "npm:kysely@~0.27.4",
           "npm:postgres@^3.4.5"
         ]
+      },
+      "packages/postgres-client": {
+        "dependencies": [
+          "npm:kysely-postgres-js@2",
+          "npm:kysely@~0.27.4",
+          "npm:postgres@^3.4.5"
+        ]
       }
     }
   }
