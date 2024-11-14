@@ -8,7 +8,8 @@
     "jsr:@std/path@^1.0.7": "1.0.8",
     "npm:@types/node@*": "22.5.4",
     "npm:kysely-postgres-js@2": "2.0.0_kysely@0.27.4_postgres@3.4.5",
-    "npm:kysely@~0.27.4": "0.27.4"
+    "npm:kysely@~0.27.4": "0.27.4",
+    "npm:postgres@^3.4.5": "3.4.5"
   },
   "jsr": {
     "@std/assert@1.0.6": {
@@ -533,7 +534,8 @@
         "dependencies": [
           "jsr:@std/assert@1",
           "npm:kysely-postgres-js@2",
-          "npm:kysely@~0.27.4"
+          "npm:kysely@~0.27.4",
+          "npm:postgres@^3.4.5"
         ]
       }
     }
