@@ -72,7 +72,7 @@ switch (command) {
         break;
     default:
         throw new Error(`Unknown command: ${command}`);
-    }
+}
 
 const { results, error } = migrationResultSet;
 await db.destroy();
