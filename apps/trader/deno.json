@@ -7,9 +7,6 @@
         "migrate": "deno run --allow-read=migrations --allow-net=127.0.0.1:5432 --env-file --allow-env migrate.ts"
     },
     "imports": {
-        "@std/assert": "jsr:@std/assert@1",
-        "kysely": "npm:kysely@^0.27.4",
-        "kysely-postgres-js": "npm:kysely-postgres-js@^2.0.0",
-        "postgres": "npm:postgres@^3.4.5"
+        "kysely": "npm:kysely@^0.27.4"
     }
 }

@@ -10,9 +10,9 @@ export function createConnection(params: {
     port: number;
     password?: string;
     max?: number;
-}): Kysely<Database> {    
+}): Kysely<Database> {
     const postgresDriver = postgres(params);
-    
+
     const db = new Kysely<Database>({
         dialect: new PostgresJSDialect({
             postgres: postgresDriver,

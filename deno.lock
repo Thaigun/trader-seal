@@ -1,9 +1,7 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@std/assert@1": "1.0.6",
     "jsr:@std/fs@*": "1.0.5",
-    "jsr:@std/internal@^1.0.4": "1.0.4",
     "jsr:@std/path@*": "1.0.8",
     "jsr:@std/path@^1.0.7": "1.0.8",
     "npm:@types/node@*": "22.5.4",
@@ -12,20 +10,11 @@
     "npm:postgres@^3.4.5": "3.4.5"
   },
   "jsr": {
-    "@std/assert@1.0.6": {
-      "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
-      "dependencies": [
-        "jsr:@std/internal"
-      ]
-    },
     "@std/fs@1.0.5": {
       "integrity": "41806ad6823d0b5f275f9849a2640d87e4ef67c51ee1b8fb02426f55e02fd44e",
       "dependencies": [
         "jsr:@std/path@^1.0.7"
       ]
-    },
-    "@std/internal@1.0.4": {
-      "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
     },
     "@std/path@1.0.8": {
       "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
@@ -532,10 +521,7 @@
     "members": {
       "apps/trader": {
         "dependencies": [
-          "jsr:@std/assert@1",
-          "npm:kysely-postgres-js@2",
-          "npm:kysely@~0.27.4",
-          "npm:postgres@^3.4.5"
+          "npm:kysely@~0.27.4"
         ]
       },
       "packages/postgres-client": {

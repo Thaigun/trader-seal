@@ -2,7 +2,7 @@
     "name": "@trader-seal/yahoo-history-builder",
     "exports": "./main.ts",
     "tasks": {
-        "scrape": "deno run --check --allow-read=output,input --allow-write=output --allow-net=query1.finance.yahoo.com scrapeYahoo.ts"
+        "scrape": "deno run --check --allow-read=output,input --allow-write=output --allow-net=query1.finance.yahoo.com main.ts"
     },
     "fmt": {
         "exclude": ["input", "output"]
