@@ -9,38 +9,37 @@ if (!currentDir) {
 
 interface FileMigrationProviderProps {
     migrationDir: string;
-  }  
+}
 
-  class DenoMigrationProvider implements MigrationProvider {
-  
+class DenoMigrationProvider implements MigrationProvider {
     constructor(private props: FileMigrationProviderProps) {}
-  
+
     async getMigrations(): Promise<Record<string, Migration>> {
-      const files: Deno.DirEntry[] = [];
-      for await (const f of Deno.readDir(this.props.migrationDir)) {
-        if (f.isFile) { files.push(f); }
-      }
-  
-      const migrations: Record<string, Migration> = {};
-  
-      for (const f of files) {
-        const filePath = `./${path.join(this.props.migrationDir, f.name)}`;
-        const migration = await import(filePath);
-        migrations[f.name.slice(0, -3)] = migration;
-      }
-  
-      return migrations;
+        const files: Deno.DirEntry[] = [];
+        for await (const f of Deno.readDir(this.props.migrationDir)) {
+            if (f.isFile) files.push(f);
+        }
+
+        const migrations: Record<string, Migration> = {};
+
+        for (const f of files) {
+            const filePath = `./${path.join(this.props.migrationDir, f.name)}`;
+            const migration = await import(filePath);
+            migrations[f.name.slice(0, -3)] = migration;
+        }
+
+        return migrations;
     }
-  }
+}
 
 const migrator = new Migrator({
     db,
     provider: new DenoMigrationProvider({
         migrationDir: './migrations',
-    })
-})
+    }),
+});
 
-const {error, results} = await migrator.migrateToLatest();
+const { error, results } = await migrator.migrateToLatest();
 
 for (const result of results ?? []) {
     if (result.status === 'Success') {

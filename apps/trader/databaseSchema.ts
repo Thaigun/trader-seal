@@ -1,9 +1,4 @@
-import type {
-    Generated,
-    Selectable,
-    Insertable,
-    Updateable,
-} from 'kysely';
+import type { Generated, Insertable, Selectable, Updateable } from 'kysely';
 
 export interface Database {
     assets: AssetTable;

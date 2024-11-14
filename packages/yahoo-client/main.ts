@@ -3,7 +3,7 @@ export async function getHistoricalData(symbol: string, opts: {
     until: number;
     interval: '1d';
     includePrePost: boolean;
-}) {
+}): Promise<unknown> {
     const { since, until, interval, includePrePost } = opts;
     const url = new URL('https://query1.finance.yahoo.com/v8/finance/chart/' + symbol);
     url.searchParams.append('period1', since.toString());

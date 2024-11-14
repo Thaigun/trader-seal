@@ -1,18 +1,8 @@
-import { AlpacaClient } from '@trader-seal/alpaca-client';
+import { DailyOhlcvDataProvider } from './dataProvider/dailyOhlcvData.ts';
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-    const keyId = Deno.env.get('APCA_KEY_ID');
-    const keySecret = Deno.env.get('APCA_KEY_SECRET');
-    if (!keyId || !keySecret) {
-        throw new Error('Missing APCA_KEY_ID or APCA_KEY_SECRET environment variables');
-    }
-    const client = new AlpacaClient({
-        key: keyId,
-        secret: keySecret,
-        mode: 'paper',
-    });
-
-    const assets = await client.getAssets();
-    console.log(assets);
+if (!import.meta.main) {
+    throw new Error('This module should be used as a script');
 }
+
+const dailyOhlcvDataProvider = new DailyOhlcvDataProvider();
+await dailyOhlcvDataProvider.start();

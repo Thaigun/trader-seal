@@ -1,6 +1,0 @@
-{
-    "imports": {
-      "kysely": "https://cdn.jsdelivr.net/npm/kysely@0.27.2/dist/esm/index.js",
-      "postgres": "https://deno.land/x/postgresjs/mod.js"
-    }
-  }
