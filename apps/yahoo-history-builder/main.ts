@@ -1,4 +1,5 @@
 import { ensureDir } from 'jsr:@std/fs';
+import { getHistoricalData } from '@trader-seal/yahoo-client';
 
 interface Asset {
     id: string;
@@ -18,31 +19,6 @@ interface Asset {
     attributes: ('ptp_no_exception' | 'ptp_with_exception' | 'ipo' | 'has_options' | 'options_late_close')[];
 }
 
-const windowsInvalidFileNames = [
-    'CON',
-    'PRN',
-    'AUX',
-    'NUL',
-    'COM1',
-    'COM2',
-    'COM3',
-    'COM4',
-    'COM5',
-    'COM6',
-    'COM7',
-    'COM8',
-    'COM9',
-    'LPT1',
-    'LPT2',
-    'LPT3',
-    'LPT4',
-    'LPT5',
-    'LPT6',
-    'LPT7',
-    'LPT8',
-    'LPT9',
-];
-
 if (import.meta.main) {
     await fetchData();
 }
@@ -58,11 +34,7 @@ async function fetchData() {
             continue;
         }
         const symbol = asset.symbol;
-        let fileName = symbol;
-        // https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file
-        if (Deno.build.os === 'windows' && windowsInvalidFileNames.includes(symbol.toUpperCase())) {
-            fileName = `_${symbol}`;
-        }
+        const fileName = `asst_${symbol}`;
         if (cumulativeSize > 5e9 && cumulativeSize - lastWarning > 1e9) {
             console.warn(`Cumulative size of historical data is over ${cumulativeSize / 1e9} GB`);
             lastWarning = cumulativeSize;
@@ -104,27 +76,6 @@ async function fetchData() {
             }
         }
     }
-}
-
-async function getHistoricalData(symbol: string, opts: {
-    since: number;
-    until: number;
-    interval: '1d';
-    includePrePost: boolean;
-}) {
-    const { since, until, interval, includePrePost } = opts;
-    const url = new URL('https://query1.finance.yahoo.com/v8/finance/chart/' + symbol);
-    url.searchParams.append('period1', since.toString());
-    url.searchParams.append('period2', Math.floor(until).toString());
-    url.searchParams.append('interval', interval);
-    url.searchParams.append('includePrePost', includePrePost.toString());
-    url.searchParams.append('events', 'div|split|earn');
-    url.searchParams.append('lang', 'en-US');
-    const response = await fetch(url.toString());
-    if (response.ok) {
-        return await response.json();
-    }
-    throw new Error(response.statusText, { cause: response.status });
 }
 
 function waitForSeconds(seconds: number) {

@@ -3,7 +3,9 @@
         "apps/yahoo-history-builder",
         "apps/trade-list-gen",
         "apps/trader",
-        "packages/alpaca-client"
+        "packages/alpaca-client",
+        "packages/postgres-client",
+        "packages/yahoo-client"
     ],
     "tasks": {
         "static-checks": "deno lint && deno fmt --check && deno check ."
