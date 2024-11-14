@@ -4,7 +4,7 @@
     "tasks": {
         "dev": "deno run --check --allow-net=localhost,paper-api.alpaca.markets,data.alpaca.markets --allow-env --env-file main.ts",
         "backtest": "deno run --check --allow-net=localhost,paper-api.alpaca.markets,data.alpaca.markets --allow-env --env-file backtest.ts",
-        "migrate-latest": "deno run --allow-read=migrations --allow-net=127.0.0.1:5432 --env-file --allow-env migrate.ts"
+        "migrate": "deno run --allow-read=migrations --allow-net=127.0.0.1:5432 --env-file --allow-env migrate.ts"
     },
     "imports": {
         "@std/assert": "jsr:@std/assert@1",

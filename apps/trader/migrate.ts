@@ -1,11 +1,6 @@
 import * as path from 'jsr:@std/path';
-import { type Migration, type MigrationProvider, Migrator } from 'kysely';
+import { type Migration, type MigrationProvider, type MigrationResultSet, Migrator } from 'kysely';
 import { db } from './db.ts';
-
-const currentDir = import.meta.dirname;
-if (!currentDir) {
-    throw new Error('import.meta.dirname is not defined');
-}
 
 interface FileMigrationProviderProps {
     migrationDir: string;
@@ -32,6 +27,17 @@ class DenoMigrationProvider implements MigrationProvider {
     }
 }
 
+const currentDir = import.meta.dirname;
+if (!currentDir) {
+    throw new Error('import.meta.dirname is not defined');
+}
+
+const command = Deno.args[0];
+if (Deno.args.length !== 1 || !['latest', 'up', 'down'].includes(command)) {
+    console.error('Usage: migrate.ts latest|up|down');
+    Deno.exit(1);
+}
+
 const migrator = new Migrator({
     db,
     provider: new DenoMigrationProvider({
@@ -39,7 +45,21 @@ const migrator = new Migrator({
     }),
 });
 
-const { error, results } = await migrator.migrateToLatest();
+let migrationResultSet: MigrationResultSet;
+switch (command) {
+    case 'latest':
+        migrationResultSet = await migrator.migrateToLatest();
+        break;
+    case 'up':
+        migrationResultSet = await migrator.migrateUp();
+        break;
+    case 'down':
+        migrationResultSet = await migrator.migrateDown();
+        break;
+    default:
+        throw new Error(`Unknown command: ${command}`);
+}
+const { results, error } = migrationResultSet;
 
 for (const result of results ?? []) {
     if (result.status === 'Success') {
