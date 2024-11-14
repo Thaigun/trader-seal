@@ -1,0 +1,38 @@
+name: Migration Tests
+
+on:
+    pull_request:
+        branches:
+            - main
+        paths:
+            - 'apps/trader/migrations/**'
+            - 'apps/trader/migrate.ts'
+            - 'packages/postgres-client/**'
+            - '.github/workflows/migration-tests.yml'
+
+jobs:
+    test-migrations:
+        runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: postgres:17
+                env:
+                    POSTGRES_USER: 'postgres'
+                    POSTGRES_PASSWORD: 'postgres'
+                    POSTGRES_DB: 'ohlcv'
+                ports:
+                    - 5432:5432
+                options: --health-cmd "pg_isready -U postgres" --health-interval 10s --health-timeout 5s --health-retries 5
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Set up Deno
+              uses: denoland/setup-deno@v2
+              with:
+                  deno-version: v2.x
+            - name: Wait for Postgres
+              run: until pg_isready -h localhost -p 5432 -U postgres; do sleep 5; done
+            - name: Run migrations
+              run: cd apps/trader && deno task migrate latest
+              env:
+                  DB_PASSWORD: 'postgres'

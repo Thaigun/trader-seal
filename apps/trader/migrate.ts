@@ -73,7 +73,9 @@ switch (command) {
     default:
         throw new Error(`Unknown command: ${command}`);
 }
+
 const { results, error } = migrationResultSet;
+await db.destroy();
 
 for (const result of results ?? []) {
     if (result.status === 'Success') {
@@ -85,7 +87,5 @@ for (const result of results ?? []) {
 
 if (error) {
     console.error('Migration failed');
-    console.error(error);
+    Deno.exit(1);
 }
-
-await db.destroy();
