@@ -1,0 +1,25 @@
+name: Migration Tests
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    deno-checks:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Set up Deno
+              uses: denoland/setup-deno@v2
+              with:
+                  deno-version: v2.x
+            - name: Use Postgres
+              uses: docker://postgres:17
+              env:
+                  POSTGRES_USER: 'postgres'
+                  POSTGRES_PASSWORD: 'postgres'
+                  POSTGRES_DB: 'ohlcv'
+            - name: Install Deno dependencies
+              run: cd apps/trader && deno task migrate latest
