@@ -4,6 +4,11 @@ on:
     pull_request:
         branches:
             - main
+        paths:
+            - 'apps/trader/migrations/**'
+            - 'apps/trader/migrate.ts'
+            - 'packages/postgres-client/**'
+            - '.github/workflows/migration-tests.yml'
 
 jobs:
     test-migrations:
